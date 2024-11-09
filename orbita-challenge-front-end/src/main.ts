@@ -1,5 +1,8 @@
 import { registerPlugins } from '@/plugins'
 
+// Tailwind Css
+import "./styles/style.css"
+
 // Components
 import App from './App.vue'
 
