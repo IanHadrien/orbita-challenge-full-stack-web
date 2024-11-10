@@ -7,4 +7,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\orbita-challenge.Domain\orbita-challenge.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

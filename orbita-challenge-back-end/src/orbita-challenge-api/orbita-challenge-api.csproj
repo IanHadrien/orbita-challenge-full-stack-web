@@ -11,4 +11,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\orbita-challenge.Application\orbita-challenge.Application.csproj" />
+    <ProjectReference Include="..\orbita-challenge.Communication\orbita-challenge.Communication.csproj" />
+    <ProjectReference Include="..\orbita-challenge.Exception\orbita-challenge.Exception.csproj" />
+    <ProjectReference Include="..\orbita-challenge.Infrastructure\orbita-challenge.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
