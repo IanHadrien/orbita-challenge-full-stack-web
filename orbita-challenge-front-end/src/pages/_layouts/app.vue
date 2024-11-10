@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-navigation-drawer v-model="isDrawerOpen">
-      <div class="text-3xl font-bold underline pl-10 pt-4 pb-5 border-b-2">
+      <div class="text-3xl font-bold underline pl-10 pt-4 pb-5 border-b-2 dark:text-white">
         <v-img
           cover
           src="https://maisaedu.com.br/hubfs/site-grupo-a/logo-mais-a-educacao.svg"
