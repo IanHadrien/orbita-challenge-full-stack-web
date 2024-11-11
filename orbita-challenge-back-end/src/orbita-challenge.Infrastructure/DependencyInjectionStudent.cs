@@ -21,6 +21,7 @@ public static class DependencyInjectionStudent
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IStudentsReadOnlyRepository, StudentsRepository>();
         services.AddScoped<IStudentsWriteOnlyRepository, StudentsRepository>();
+        services.AddScoped<IStudentUpdateOnlyRepository, StudentsRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
