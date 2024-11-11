@@ -25,4 +25,18 @@ internal class StudentsRepository : IStudentsReadOnlyRepository, IStudentsWriteO
     {
         return await _dbContext.Students.AsNoTracking().FirstOrDefaultAsync(student => student.Id == id);
     }
+
+    public async Task<bool> Delete(long id)
+    {
+        var result = await _dbContext.Students.FirstOrDefaultAsync(stundet => stundet.Id == id);
+
+        if (result is null)
+        {
+            return false;
+        }
+
+        _dbContext.Students.Remove(result);
+
+        return true;
+    }
 }

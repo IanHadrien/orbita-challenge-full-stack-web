@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using orbita_challenge.Application.AutoMapper;
+using orbita_challenge.Application.UseCases.Students.Delete;
 using orbita_challenge.Application.UseCases.Students.GetAll;
 using orbita_challenge.Application.UseCases.Students.GetById;
 using orbita_challenge.Application.UseCases.Students.Register;
@@ -23,5 +24,6 @@ public static class DependencyInjectionStudent
         services.AddScoped<IRegisterStudentUseCase, RegisterStudentUseCase>();
         services.AddScoped<IGetAllStudentsUseCase, GetAllStudentsUseCase>();
         services.AddScoped<IGetStudentByIdUseCase, GetStudentByIdUseCase>();
+        services.AddScoped<IDeleteStudentUseCase, DeleteStudentUseCase>();
     }
 }

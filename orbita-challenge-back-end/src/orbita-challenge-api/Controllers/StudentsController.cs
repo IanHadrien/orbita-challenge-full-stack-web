@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using orbita_challenge.Application.UseCases.Students.Delete;
 using orbita_challenge.Application.UseCases.Students.GetAll;
 using orbita_challenge.Application.UseCases.Students.GetById;
 using orbita_challenge.Application.UseCases.Students.Register;
@@ -45,5 +46,17 @@ public class StudentsController : ControllerBase
         var response = await useCase.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpDelete]
+    [Route("{id}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete(
+        [FromServices] IDeleteStudentUseCase useCase,
+        [FromRoute] long id)
+    {
+        await useCase.Execute(id);
+
+        return NoContent();
     }
 }
