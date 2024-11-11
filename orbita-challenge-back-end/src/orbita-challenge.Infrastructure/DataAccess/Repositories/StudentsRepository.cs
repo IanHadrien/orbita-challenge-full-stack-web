@@ -3,7 +3,7 @@ using orbita_challenge.Domain.Entities;
 using orbita_challenge.Domain.Repositories.Students;
 
 namespace orbita_challenge.Infrastructure.DataAccess.Repositories;
-internal class StudentsRepository : IStudentsReadOnlyRepository, IStudentsWriteOnlyRepository
+internal class StudentsRepository : IStudentsReadOnlyRepository, IStudentsWriteOnlyRepository, IStudentUpdateOnlyRepository
 {
     private readonly OrbitaChallengeDbContext _dbContext;
     public StudentsRepository(OrbitaChallengeDbContext dbContext)
@@ -21,9 +21,19 @@ internal class StudentsRepository : IStudentsReadOnlyRepository, IStudentsWriteO
         return await _dbContext.Students.AsNoTracking().ToListAsync();
     }
 
-    public async Task<Student?> GetById(long id)
+    async Task<Student?> IStudentsReadOnlyRepository.GetById(long id)
     {
         return await _dbContext.Students.AsNoTracking().FirstOrDefaultAsync(student => student.Id == id);
+    }
+
+    async Task<Student?> IStudentUpdateOnlyRepository.GetById(long id)
+    {
+        return await _dbContext.Students.FirstOrDefaultAsync(student => student.Id == id);
+    }
+
+    public void Update(Student student)
+    {
+        _dbContext.Students.Update(student);
     }
 
     public async Task<bool> Delete(long id)

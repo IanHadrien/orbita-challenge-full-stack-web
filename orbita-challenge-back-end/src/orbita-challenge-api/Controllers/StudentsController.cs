@@ -3,6 +3,7 @@ using orbita_challenge.Application.UseCases.Students.Delete;
 using orbita_challenge.Application.UseCases.Students.GetAll;
 using orbita_challenge.Application.UseCases.Students.GetById;
 using orbita_challenge.Application.UseCases.Students.Register;
+using orbita_challenge.Application.UseCases.Students.Update;
 using orbita_challenge.Communication.Requests;
 using orbita_challenge.Communication.Responses;
 
@@ -38,7 +39,7 @@ public class StudentsController : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(typeof(ResponseOneStudentJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     public async Task<IActionResult> GetById(
         [FromServices] IGetStudentByIdUseCase useCase,
         [FromRoute] long id)
@@ -46,6 +47,19 @@ public class StudentsController : ControllerBase
         var response = await useCase.Execute(id);
 
         return Ok(response);
+    }
+
+    [HttpPut]
+    [Route("{id}")]
+    [ProducesResponseType(typeof(ResponseOneStudentJson), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Update(
+        [FromServices] IUpdateStudentUseCase useCase,
+        [FromRoute] long id,
+        [FromBody] RequestUpdateStudentJson request)
+    {
+        await useCase.Execute(id, request);
+
+        return NoContent();
     }
 
     [HttpDelete]
