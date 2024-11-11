@@ -14,6 +14,10 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RequestRegisterStundetJson, Student>();
+
+        CreateMap<RequestUpdateStudentJson, Student>()
+        .ForMember(dest => dest.Ra, opt => opt.Ignore())
+        .ForMember(dest => dest.Cpf, opt => opt.Ignore());
     }
     private void EntityToResponse()
     {
