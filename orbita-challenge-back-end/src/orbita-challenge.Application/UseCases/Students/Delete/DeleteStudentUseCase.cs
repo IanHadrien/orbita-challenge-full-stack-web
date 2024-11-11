@@ -20,7 +20,7 @@ public class DeleteStudentUseCase : IDeleteStudentUseCase
 
         if (result == false)
         {
-            throw new System.Exception("Aulo não deletado");
+            throw new System.Exception("Aulo não encontrado");
         }
 
         await _unitOfWork.Commit();
