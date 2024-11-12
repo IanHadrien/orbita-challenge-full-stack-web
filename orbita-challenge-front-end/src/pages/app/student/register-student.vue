@@ -23,93 +23,77 @@
         <span class="text-h5">Cadastrar Aluno</span>
       </v-card-title>
 
-      <form class="p-2 px-4 pt-5 space-y-3" @submit="registerStudent">
-        <div>
-          <label for="name" class="block mb-2 text-sm font-medium text-gray-900">
-            Nome *
-          </label>
-          <input 
-            type="text" 
-            id="name" 
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-            placeholder="Informe o nome completo" 
-            required 
-            v-model="itensForm.name"
-          />
-        </div> 
+      <form class="p-2 px-4 pt-5" @submit="registerStudent">
+        <v-text-field
+          v-model="itensForm.name"
+          variant="underlined"
+          label="Nome *"
+          required
+        />
 
-        <div>
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900">
-            E-mail *
-          </label>
-          <input 
-            type="email" 
-            id="email" 
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-            placeholder="Informe apenas um e-mail"   
-            required 
-          />
-        </div> 
+        <v-text-field
+          v-model="itensForm.email"
+          variant="underlined"
+          label="E-mail *"
+          type="email" 
+          required
+        />
 
-        <div>
-          <label for="ra" class="block mb-2 text-sm font-medium text-gray-900">
-            Registro acadêmico *
-          </label>
-          <input 
-            type="number" 
-            id="ra" 
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-            placeholder="Informe o registro acadêmico" 
-            required 
-          />
-        </div> 
+        <v-text-field
+          v-model="itensForm.ra"
+          variant="underlined"
+          label="Registro acadêmico *"
+          required
+        />
 
-        <div>
-          <label for="cpf" class="block mb-2 text-sm font-medium text-gray-900">
-            CPF *
-          </label>
-          <input 
-            type="number" 
-            id="cpf" 
-            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" 
-            placeholder="Informe o número do documento" 
-            required 
-          />
-        </div> 
+        <v-text-field
+          v-model="itensForm.cpf"
+          variant="underlined"
+          label="CPF *"
+          placeholder="Informe o número do documento"
+          required
+        />
 
-        <div class="flex items-center justify-end space-x-2">
-          <button 
-            @click="close"
-            type="submit" 
-            class="inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
-            Cancelar
-          </button>
-          <button 
-            type="submit" 
-            class="inline-flex w-full justify-center rounded-md bg-gray-900 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:opacity-80 sm:ml-3 sm:w-auto">
-            Salvar
-          </button>
+        <div class="flex items-center justify-end space-x-2 mt-4">
+          <div>
+            <v-btn
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              variant="flat"
+              color="error"
+              @click="close"
+            >
+              Cancelar
+            </v-btn>
+          </div>
+
+          <div>
+            <v-btn
+              :loading="loading"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              variant="flat"
+              type="submit"
+            >
+              Salvar
+            </v-btn>
+          </div>
         </div>
-
-        <!-- <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue-darken-1"
-            variant="text"
-            @click="v$.$validate"
-          >
-            Save
-          </v-btn>
-        </v-card-actions> -->
       </form>
     </v-card>
   </v-dialog>
 </template>
 
 <script lang="ts">
+  import { useToast } from 'vue-toastification'
+
   export default {
     name: 'RegisterStudent',
 
+    setup() {
+      const toast = useToast();
+
+      return { toast }
+    },
+    
     data() {
       return {
         dialog: false,
@@ -120,6 +104,11 @@
           ra: '',
           cpf: '',
         },
+
+        visible: true,
+        loading: false,
+
+        // firstNameRules: [Validação CPF],
       }
   },
 
@@ -131,8 +120,18 @@
 
     methods: {
       registerStudent (e) {
-        e.preventDefault();
-        console.log('register', this.itensForm)
+        this.toast.success("incremented!")
+        this.loading = true
+        e.preventDefault()
+
+        const data = {
+          name: this.itensForm.name,
+          email: this.itensForm.email,
+          ra: this.itensForm.ra,
+          cpf: this.itensForm.cpf,
+        }
+
+        console.log('register', data)
       },
 
       close () {
@@ -141,7 +140,3 @@
     }
   }
 </script>
-
-<style scoped>
-
-</style>
