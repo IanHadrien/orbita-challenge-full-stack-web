@@ -27,6 +27,7 @@ public static class DependencyInjectionStudent
         services.AddScoped<IStudentsWriteOnlyRepository, StudentsRepository>();
         services.AddScoped<IStudentUpdateOnlyRepository, StudentsRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
