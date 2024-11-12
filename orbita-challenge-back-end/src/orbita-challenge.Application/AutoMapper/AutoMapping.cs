@@ -14,10 +14,12 @@ public class AutoMapping : Profile
     private void RequestToEntity()
     {
         CreateMap<RequestRegisterStundetJson, Student>();
-
         CreateMap<RequestUpdateStudentJson, Student>()
-        .ForMember(dest => dest.Ra, opt => opt.Ignore())
-        .ForMember(dest => dest.Cpf, opt => opt.Ignore());
+            .ForMember(dest => dest.Ra, opt => opt.Ignore())
+            .ForMember(dest => dest.Cpf, opt => opt.Ignore());
+
+        CreateMap<RequestRegisterUserJson, User>()
+            .ForMember(dest => dest.Password, config => config.Ignore());
     }
     private void EntityToResponse()
     {
