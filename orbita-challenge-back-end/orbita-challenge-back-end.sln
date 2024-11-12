@@ -7,8 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{581881A5-EF3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{635AF4D2-E63B-403D-872A-B1A3C996DB43}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orbita-challenge-api", "src\orbita-challenge-api\orbita-challenge-api.csproj", "{439486DE-86F1-4D92-B566-450D48726FAA}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orbita-challenge.Domain", "src\orbita-challenge.Domain\orbita-challenge.Domain.csproj", "{77EBEF6E-A511-4DC1-AB76-4C892FEA8FB0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orbita-challenge.Application", "src\orbita-challenge.Application\orbita-challenge.Application.csproj", "{0812D387-2F83-47B3-B4C8-ADF506434690}"
@@ -19,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orbita-challenge.Exception"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "orbita-challenge.Infrastructure", "src\orbita-challenge.Infrastructure\orbita-challenge.Infrastructure.csproj", "{A35A7707-AF71-48AE-89F9-E3DF9B12D0C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Validators.Tests", "tests\Validators.Tests\Validators.Tests.csproj", "{BF3D92F5-6A90-4DF5-A1D7-7543CF56FC48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Validators.Tests", "tests\Validators.Tests\Validators.Tests.csproj", "{BF3D92F5-6A90-4DF5-A1D7-7543CF56FC48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "orbita-challenge.Api", "src\orbita-challenge.Api\orbita-challenge.Api.csproj", "{F15966B6-DA58-45E0-8755-552F1821818A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{439486DE-86F1-4D92-B566-450D48726FAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{439486DE-86F1-4D92-B566-450D48726FAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{439486DE-86F1-4D92-B566-450D48726FAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{439486DE-86F1-4D92-B566-450D48726FAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77EBEF6E-A511-4DC1-AB76-4C892FEA8FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77EBEF6E-A511-4DC1-AB76-4C892FEA8FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77EBEF6E-A511-4DC1-AB76-4C892FEA8FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -55,18 +51,22 @@ Global
 		{BF3D92F5-6A90-4DF5-A1D7-7543CF56FC48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF3D92F5-6A90-4DF5-A1D7-7543CF56FC48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF3D92F5-6A90-4DF5-A1D7-7543CF56FC48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F15966B6-DA58-45E0-8755-552F1821818A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F15966B6-DA58-45E0-8755-552F1821818A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F15966B6-DA58-45E0-8755-552F1821818A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F15966B6-DA58-45E0-8755-552F1821818A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{439486DE-86F1-4D92-B566-450D48726FAA} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 		{77EBEF6E-A511-4DC1-AB76-4C892FEA8FB0} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 		{0812D387-2F83-47B3-B4C8-ADF506434690} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 		{F26D9AEF-EFE6-420C-BAB3-A3E64848FD82} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 		{B9DE14AF-713C-4810-A54C-1F04A142CD29} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 		{A35A7707-AF71-48AE-89F9-E3DF9B12D0C8} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 		{BF3D92F5-6A90-4DF5-A1D7-7543CF56FC48} = {635AF4D2-E63B-403D-872A-B1A3C996DB43}
+		{F15966B6-DA58-45E0-8755-552F1821818A} = {581881A5-EF31-4696-8E81-A8E507AC1194}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {893CE858-6365-44A2-B6FD-49581993474E}

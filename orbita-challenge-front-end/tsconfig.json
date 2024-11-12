@@ -12,7 +12,9 @@
     "resolveJsonModule": true,
     "types": [
       "vite/client",
-      "unplugin-vue-router/client"
+      "unplugin-vue-router/client",
+      "@vuelidate/core", 
+      "@vuelidate/validators"
     ],
     "allowJs": true,
     "strict": true,
