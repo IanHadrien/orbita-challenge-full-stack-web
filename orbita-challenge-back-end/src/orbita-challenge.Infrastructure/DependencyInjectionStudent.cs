@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using orbita_challenge.Domain.Repositories;
 using orbita_challenge.Domain.Repositories.Students;
+using orbita_challenge.Domain.Repositories.Users;
+using orbita_challenge.Domain.Security.Cryptography;
 using orbita_challenge.Infrastructure.DataAccess;
 using orbita_challenge.Infrastructure.DataAccess.Repositories;
 
@@ -14,6 +16,8 @@ public static class DependencyInjectionStudent
     {
         AddDbContext(services, configuration);
         AddRepositories(services);
+
+        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
     }
 
     private static void AddRepositories(IServiceCollection services)
@@ -22,6 +26,7 @@ public static class DependencyInjectionStudent
         services.AddScoped<IStudentsReadOnlyRepository, StudentsRepository>();
         services.AddScoped<IStudentsWriteOnlyRepository, StudentsRepository>();
         services.AddScoped<IStudentUpdateOnlyRepository, StudentsRepository>();
+        services.AddScoped<IUserReadOnlyRepository, UserRepository>();
     }
 
     private static void AddDbContext(IServiceCollection services, IConfiguration configuration)
