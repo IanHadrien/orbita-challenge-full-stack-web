@@ -7,4 +7,5 @@ internal class OrbitaChallengeDbContext : DbContext
     public OrbitaChallengeDbContext(DbContextOptions options) : base(options) { }
 
     public DbSet<Student> Students { get; set; }
+    public DbSet<User> Users { get; set; }
 }
