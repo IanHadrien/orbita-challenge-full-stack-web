@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using orbita_challenge.Application.UseCases.Students.Delete;
 using orbita_challenge.Application.UseCases.Students.GetAll;
 using orbita_challenge.Application.UseCases.Students.GetById;
@@ -11,6 +12,7 @@ namespace orbita_challenge_api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class StudentsController : ControllerBase
 {
     [HttpPost]
@@ -27,6 +29,7 @@ public class StudentsController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(ResponseStudentsJson), StatusCodes.Status200OK)]
+    //[Authorize]
     public async Task<IActionResult> GetAllStudents([FromServices] IGetAllStudentsUseCase useCase)
     {
         var response = await useCase.Execute();

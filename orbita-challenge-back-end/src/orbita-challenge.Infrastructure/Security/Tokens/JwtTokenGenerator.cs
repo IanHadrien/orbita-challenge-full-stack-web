@@ -26,7 +26,8 @@ public class JwtTokenGenerator : IAccessTokenGenerator
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
-            Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
+            //Expires = DateTime.UtcNow.AddMinutes(_expirationTimeMinutes),
+            Expires = DateTime.UtcNow.AddHours(3),
             SigningCredentials = new SigningCredentials(SecurityKey(), SecurityAlgorithms.HmacSha256Signature),
             Subject = new ClaimsIdentity(claims)
         };
