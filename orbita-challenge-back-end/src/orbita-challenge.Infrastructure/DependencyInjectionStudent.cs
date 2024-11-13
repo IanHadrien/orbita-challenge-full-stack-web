@@ -6,8 +6,10 @@ using orbita_challenge.Domain.Repositories;
 using orbita_challenge.Domain.Repositories.Students;
 using orbita_challenge.Domain.Repositories.Users;
 using orbita_challenge.Domain.Security.Cryptography;
+using orbita_challenge.Domain.Security.Tokens;
 using orbita_challenge.Infrastructure.DataAccess;
 using orbita_challenge.Infrastructure.DataAccess.Repositories;
+using orbita_challenge.Infrastructure.Security.Tokens;
 
 namespace orbita_challenge.Infrastructure;
 public static class DependencyInjectionStudent
@@ -15,9 +17,18 @@ public static class DependencyInjectionStudent
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDbContext(services, configuration);
+        AddToken(services, configuration);
         AddRepositories(services);
 
-        services.AddScoped<IPasswordEncripter, Security.BCrypt>();
+        services.AddScoped<IPasswordEncripter, Security.Cryptography.BCrypt>();
+    }
+
+    private static void AddToken(IServiceCollection services, IConfiguration configuration)
+    {
+        var expirationTimeMinutes = configuration.GetValue<uint>("Settings:Jwt:ExpiresMinutes");
+        var signingKey = configuration.GetValue<string>("Settings:Jwt:SigningKey");
+
+        services.AddScoped<IAccessTokenGenerator>(config => new JwtTokenGenerator(expirationTimeMinutes, signingKey!));
     }
 
     private static void AddRepositories(IServiceCollection services)

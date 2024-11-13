@@ -4,6 +4,7 @@ using orbita_challenge.Communication.Responses;
 using orbita_challenge.Domain.Repositories;
 using orbita_challenge.Domain.Repositories.Users;
 using orbita_challenge.Domain.Security.Cryptography;
+using orbita_challenge.Domain.Security.Tokens;
 
 namespace orbita_challenge.Application.UseCases.Users;
 public class RegisterUserUseCase : IRegisterUserUseCase
@@ -13,19 +14,22 @@ public class RegisterUserUseCase : IRegisterUserUseCase
     private readonly IUserReadOnlyRepository _userReadOnlyRepository;
     private readonly IUserWriteOnlyRepository _userWriteOnlyRepository;
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IAccessTokenGenerator _tokenGenerator;
 
     public RegisterUserUseCase(
         IMapper mapper, 
         IPasswordEncripter passwordEncripter,
         IUserReadOnlyRepository userReadOnlyRepository,
         IUserWriteOnlyRepository userWriteOnlyRepository,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IAccessTokenGenerator tokenGenerator)
     {
         _mapper = mapper;
         _passwordEncripter = passwordEncripter;
         _userReadOnlyRepository = userReadOnlyRepository;
         _userWriteOnlyRepository = userWriteOnlyRepository;
         _unitOfWork = unitOfWork;
+        _tokenGenerator = tokenGenerator;
     }
 
     public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
@@ -47,6 +51,7 @@ public class RegisterUserUseCase : IRegisterUserUseCase
         return new ResponseRegisteredUserJson
         {
             Email = user.Email,
+            Token = _tokenGenerator.Generate(user)
         };
     }
 }
