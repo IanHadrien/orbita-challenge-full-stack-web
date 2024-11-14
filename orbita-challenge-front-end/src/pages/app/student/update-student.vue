@@ -18,7 +18,7 @@
         <span class="text-h5">Atualizar Aluno</span>
       </v-card-title>
 
-      <form class="p-2 px-4 pt-5" @submit="registerStudent">
+      <form class="p-2 px-4 pt-5" @submit="updateStudent">
         <v-text-field
           v-model="studentForm.name"
           variant="underlined"
@@ -39,6 +39,7 @@
           variant="underlined"
           label="Registro acadêmico *"
           required
+          :disabled="true"
         />
 
         <v-text-field
@@ -47,6 +48,7 @@
           label="CPF *"
           placeholder="Informe o número do documento"
           required
+          :disabled="true"
         />
 
         <div class="flex items-center justify-end space-x-2 mt-4">
@@ -79,6 +81,7 @@
 
 <script lang="ts">
   import { Student } from '@/_types/student'
+import { updateStudentApi } from '@/api/student/update-student';
   import { PropType } from 'vue'
   import { useToast } from 'vue-toastification'
 
@@ -103,6 +106,7 @@
         dialog: false,
 
         studentForm: {
+          id: this.student.id,
           name: this.student.name,
           email: this.student.email,
           ra: this.student.ra,
@@ -111,8 +115,6 @@
 
         visible: true,
         loading: false,
-
-        // firstNameRules: [Validação CPF],
       }
   },
 
@@ -123,24 +125,37 @@
     },
 
     methods: {
-      registerStudent (e) {
-        e.preventDefault()
+      async updateStudent (e) {
         this.loading = true
+        e.preventDefault()
 
-        // const data = {
-        //   name: this.studentForm.name,
-        //   email: this.studentForm.email,
-        //   ra: this.studentForm.ra,
-        //   cpf: this.studentForm.cpf,
-        // }
+        try {
+          await updateStudentApi({
+            id: this.studentForm.id,
+            name: this.studentForm.name,
+            email: this.studentForm.email,
+          })
 
-        this.toast.success("Aluno atualizado com sucesso!")
-
-        console.log('register', this.student)
+          this.toast.success("Aluno editado com sucesso!")
+          this.close()
+        } catch (e) {
+          console.error("Erro:", e)
+          this.toast.error('Falha ao editar aluno.')
+        } finally {
+          this.loading = false
+        }
       },
 
       close () {
-        this.dialog = false
+        this.dialog = false,
+        
+        this.studentForm = {
+          id: this.student.id,
+          name: this.student.name,
+          email: this.student.email,
+          ra: this.student.ra,
+          cpf: this.student.cpf,
+        }
       },
     }
   }
