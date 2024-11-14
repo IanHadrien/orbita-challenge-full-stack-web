@@ -96,26 +96,24 @@
       return { toast }
     },
     
-    data() {
-      return {
-        dialog: false,
+    data: () => ({
+      dialog: false,
 
-        itensForm: {
-          name: '',
-          email: '',
-          ra: '',
-          cpf: '',
-        },
+      itensForm: {
+        name: '',
+        email: '',
+        ra: '',
+        cpf: '',
+      },
 
-        visible: true,
-        loading: false,
+      visible: true,
+      loading: false,
 
-        cpfRules: [
-          (v : any) => !!v || 'Campo obrigatório',
-          (v : any) => (/^([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11})|([0-9]{9}-[0-9]{2})$/ || v.lenght == 11).test(v) || 'CPF inválido'
-        ]
-      }
-  },
+      cpfRules: [
+        (v : any) => !!v || 'Campo obrigatório',
+        (v : any) => (/^([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11})|([0-9]{9}-[0-9]{2})$/ || v.lenght == 11).test(v) || 'CPF inválido'
+      ]
+    }),
 
     watch: {
       dialog (val) {

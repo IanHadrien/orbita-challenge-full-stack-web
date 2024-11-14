@@ -35,15 +35,26 @@
             <v-icon icon="mdi-bell-outline"></v-icon>
           </v-badge>
         </v-btn>
+
+        <Avatar />
       </template>
     </v-app-bar>
-
     <router-view />
   </div>
 </template>
 
-<script lang="ts" setup>
-  import { ref } from 'vue'
+<script lang="ts">
+  import Avatar from '@/components/avatar.vue';
 
-  const isDrawerOpen = ref(true)
+  export default {
+    name: "LayoutApp",
+
+    data: () => ({
+      isDrawerOpen: true,
+    }),
+
+    components: {
+      Avatar
+    }
+  }
 </script>
