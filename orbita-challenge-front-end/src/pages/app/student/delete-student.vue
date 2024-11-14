@@ -58,6 +58,7 @@
 
 <script lang="ts">
   import { Student } from '@/_types/student'
+import { deleteStudentApi } from '@/api/student/delete-student';
   import { PropType } from 'vue'
   import { useToast } from 'vue-toastification'
 
@@ -82,42 +83,36 @@
         dialog: false,
 
         studentForm: {
+          id: this.student.id,
           name: this.student.name,
-          email: this.student.email,
-          ra: this.student.ra,
-          cpf: this.student.cpf,
         },
 
         loading: false,
       }
-  },
-
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
     },
 
     methods: {
-      deleteStudent (e: MouseEvent) {
+      async deleteStudent (e: MouseEvent) {
         e.preventDefault()
         this.loading = true
 
-        // const data = {
-        //   name: this.studentForm.name,
-        //   email: this.studentForm.email,
-        //   ra: this.studentForm.ra,
-        //   cpf: this.studentForm.cpf,
-        // }
+        try {
+          await deleteStudentApi({
+            id: this.studentForm.id,
+          })
 
-        this.toast.success("Aluno excluído com sucesso!")
-
-        console.log('register', this.student)
+          this.toast.success("Aluno excluído com sucesso!")
+          this.close()
+        } catch (e) {
+          console.error("Erro:", e)
+          this.toast.error('Falha ao excluir aluno.')
+        } finally {
+          this.loading = false
+        }
       },
 
       close () {
         this.dialog = false
-        this.loading = false
       },
     }
   }
