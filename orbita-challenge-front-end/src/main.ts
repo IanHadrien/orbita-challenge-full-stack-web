@@ -1,5 +1,6 @@
 import { registerPlugins } from '@/plugins'
 import Toast from 'vue-toastification'
+
 import "vue-toastification/dist/index.css";
 
 // Tailwind Css

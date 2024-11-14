@@ -73,8 +73,8 @@
           const students = await getStudentsApi()
           this.students = students
           console.log("Studantes:", students)
-        } catch (error) {
-          this.toast.error('Falha ao carregar estudantes:')
+        } catch (e) {
+          this.toast.error('Falha ao carregar estudantes.')
         } finally {
           this.loading = false
         }

@@ -5,7 +5,7 @@
   >
     <template v-slot:activator="{ props }">
       <v-btn
-        prepend-icon="$vuetify"
+        prepend-icon="mdi-account-plus"
         color="primary"
         class="mb-5"
         height="40"
@@ -50,6 +50,7 @@
           v-model="itensForm.cpf"
           variant="underlined"
           label="CPF *"
+          :rules="cpfRules"
           placeholder="Informe o número do documento"
           required
         />
@@ -83,6 +84,7 @@
 </template>
 
 <script lang="ts">
+  import { registerStudentApi } from '@/api/student/register-student'
   import { useToast } from 'vue-toastification'
 
   export default {
@@ -108,7 +110,10 @@
         visible: true,
         loading: false,
 
-        // firstNameRules: [Validação CPF],
+        cpfRules: [
+          (v : any) => !!v || 'Campo obrigatório',
+          (v : any) => (/^([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11})|([0-9]{9}-[0-9]{2})$/ || v.lenght == 11).test(v) || 'CPF inválido'
+        ]
       }
   },
 
@@ -119,23 +124,36 @@
     },
 
     methods: {
-      registerStudent (e) {
-        this.toast.success("incremented!")
+      async registerStudent (e: SubmitEvent) {
         this.loading = true
         e.preventDefault()
 
-        const data = {
-          name: this.itensForm.name,
-          email: this.itensForm.email,
-          ra: this.itensForm.ra,
-          cpf: this.itensForm.cpf,
-        }
+        try {
+          await registerStudentApi({
+            name: this.itensForm.name,
+            email: this.itensForm.email,
+            ra: this.itensForm.ra,
+            cpf: this.itensForm.cpf,
+          })
 
-        console.log('register', data)
+          this.toast.success("Aulo cadastrado com sucesso!")
+          this.close()
+        } catch (e) {
+          console.error("Erro:", e)
+          this.toast.error('Falha ao cadastrar estudantes.')
+        } finally {
+          this.loading = false
+        }
       },
 
       close () {
         this.dialog = false
+        this.itensForm = {
+          name: '',
+          email: '',
+          ra: '',
+          cpf: '',
+        }
       },
     }
   }
