@@ -15,15 +15,11 @@
     <!-- Table -->
     <v-data-table
       :headers="headers"
-      :items="desserts"
+      :items="students"
       :sort-by="[{ key: 'id', order: 'asc' }]"
-      :fixed-footer="{
-        itemsPerPageText: 'Itens por página',
-        pageText: (pageStart, pageStop, itemsLength) => 
-          `${pageStart}-${pageStop} de ${itemsLength}`
-      }"
+      :loading="loading"
     >
-      <template v-slot:item.actions="{ item }">
+      <template #item.actions="{ item }">
         <UpdateStudent :student="item" />
 
         <DeleteStudent :student="item" />
@@ -36,19 +32,28 @@
   import RegisterStudent from './register-student.vue'
   import UpdateStudent from './update-student.vue'
   import DeleteStudent from './delete-student.vue'
+  import { getStudentsApi } from '@/api/student/get-students'
+  import { Student } from "@/_types/student"
+  import { useToast } from 'vue-toastification'
 
   export default {
     name: "Students",
 
+    setup() {
+      const toast = useToast()
+      return { toast }
+    },
+
     data: () => ({
       headers: [
-        { title: 'REGISTRO ACADÊMICO', align: 'start', sortable: false, key: 'ra'},
-        { title: 'NOME', key: 'name' },
-        { title: 'CPF', key: 'cpf' },
-        { title: '', key: 'actions', align: 'center', sortable: false },
+        { title: 'REGISTRO ACADÊMICO', align: 'start' as const, sortable: false, key: 'ra'},
+        { title: 'NOME', align: 'start' as const, sortable: true, key: 'name' },
+        { title: 'CPF', align: 'start' as const, sortable: true, key: 'cpf' },
+        { title: '', key: 'actions', align: 'center' as const, sortable: false },
       ],
 
-      desserts: [],
+      students: Array<Student>(),
+      loading: false,
     }),
 
     components: {
@@ -58,27 +63,21 @@
     },
 
     created () {
-      this.initialize()
+      this.getStudents()
     },
 
     methods: {
-      initialize () {
-        this.desserts = [
-          {
-            id: '123123',
-            name: 'teste 1',
-            email: 'Ianteste@enmai.com',
-            ra: '12312312323',
-            cpf: '12312312323',
-          },
-          {
-            id: '123123',
-            name: 'teste 2',
-            email: 'Ianteste2@enmai.com',
-            ra: '12312312113',
-            cpf: '12312312323',
-          },
-        ]
+      async getStudents() {
+        this.loading = true
+        try {
+          const students = await getStudentsApi()
+          this.students = students
+          console.log("Studantes:", students)
+        } catch (error) {
+          this.toast.error('Falha ao carregar estudantes:')
+        } finally {
+          this.loading = false
+        }
       }
     },
   }
