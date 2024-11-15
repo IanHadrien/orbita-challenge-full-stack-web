@@ -1,6 +1,6 @@
 <template>
-  <div>
-    About
+  <div class="welcome-message">
+    Bem-vindo ao módulo acadêmico!
   </div>
 </template>
 
@@ -19,5 +19,12 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
+.welcome-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  font-weight: bold;
+}
 </style>
