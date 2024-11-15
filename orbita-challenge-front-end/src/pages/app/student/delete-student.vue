@@ -8,7 +8,7 @@
         density="compact" 
         rounded
         icon="mdi-delete-outline" 
-        color="error"
+        color="#CE002E"
         v-bind="props"
       />
     </template>
@@ -29,9 +29,9 @@
         <div class="flex items-center justify-end space-x-2 mt-4">
           <div>
             <v-btn
-              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md font-medium shadow-sm hover:opacity-80"
               variant="flat"
-              color=""
+              color="#CE002E"
               @click="close"
             >
               Cancelar
@@ -41,9 +41,9 @@
           <div>
             <v-btn
               :loading="loading"
-              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md font-medium shadow-sm hover:opacity-80"
               variant="flat"
-              color="error"
+              color="#2D2C2C"
               type="submit"
               @click="deleteStudent"
             >
@@ -102,6 +102,8 @@ import { deleteStudentApi } from '@/api/student/delete-student';
           })
 
           this.toast.success("Aluno excluído com sucesso!")
+
+          this.$emit("delete-success")
           this.close()
         } catch (e) {
           console.error("Erro:", e)

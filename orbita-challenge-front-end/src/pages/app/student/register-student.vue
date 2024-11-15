@@ -8,6 +8,7 @@
         prepend-icon="mdi-account-plus"
         color="#2D2C2C"
         height="40"
+        class="w-full sm:w-auto"
         border
         rounded="lg"
         dark
@@ -24,6 +25,7 @@
 
       <form class="p-2 px-4 pt-5" @submit="registerStudent">
         <v-text-field
+          name="name"
           v-model="itensForm.name"
           variant="underlined"
           :error-messages="errors.Name"
@@ -32,6 +34,7 @@
         />
 
         <v-text-field
+          name="email"
           v-model="itensForm.email"
           variant="underlined"
           :error-messages="errors.Email"
@@ -41,6 +44,7 @@
         />
 
         <v-text-field
+          name="ra"
           v-model="itensForm.ra"
           variant="underlined"
           :error-messages="errors.RA"
@@ -49,6 +53,7 @@
         />
 
         <v-text-field
+          name="cpf"
           v-model="itensForm.cpf"
           variant="underlined"
           :error-messages="errors.CPF"

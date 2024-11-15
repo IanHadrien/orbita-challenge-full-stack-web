@@ -1,6 +1,6 @@
 <template>
   <div class="px-6 pt-4">
-    <div class="flex items-center justify-between space-x-16 mb-2">
+    <div class="sm:flex items-center justify-between space-y-2 sm:space-y-0 sm:space-x-16 mb-2">
       <div class="w-full flex items-center space-x-2">
         <v-text-field
           label="Pesquisar por nome, cpf e registro"
@@ -9,6 +9,7 @@
           density="compact"
           hide-details="auto"
           v-model="search"
+          data-testid="search-input"
         />
 
         <v-btn 
