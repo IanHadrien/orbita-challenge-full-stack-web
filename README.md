@@ -67,7 +67,7 @@ Abaixo, você pode encontrar um link para o vídeo que demonstra o funcionamento
 
 **https://youtu.be/hlrcuMApamA**
 
-# Guia de Instalação e Configuração Back 
+# Guia de Instalação e Configuração 
 
 Siga os passos abaixo para configurar e executar o projeto:
 
@@ -89,7 +89,9 @@ Atualize o campo Connection com os detalhes do seu banco de dados. Exemplo de co
   ```
 
   4. Ceritfique de rodar o projeto na pasta informada logo a baixo:
+  <br>
  ![DDD](mockups/api.png)
+---
 
  5. Depois de executar o backend, dentro do projeto Front, acesse a pasta **plugins** e acesse o arquivo **axios** e altere para a url gerada pela sua api:
    ```sh
