@@ -3,5 +3,5 @@
 namespace orbita_challenge.Application.UseCases.Students.GetAll;
 public interface IGetAllStudentsUseCase
 {
-    Task<ResponseStudentsJson> Execute();
+    Task<ResponseStudentsJson> Execute(string? search);
 }

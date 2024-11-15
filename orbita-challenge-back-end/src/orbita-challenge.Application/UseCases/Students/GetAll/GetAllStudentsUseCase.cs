@@ -14,9 +14,9 @@ public class GetAllStudentsUseCase : IGetAllStudentsUseCase
         _mapper = mapper;
     }
 
-    public async Task<ResponseStudentsJson> Execute()
+    public async Task<ResponseStudentsJson> Execute(string? search)
     {
-        var result = await _repository.GetAll();
+        var result = await _repository.GetAll(search);
 
         return new ResponseStudentsJson
         {
