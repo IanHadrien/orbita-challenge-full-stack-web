@@ -1,7 +1,7 @@
 import { registerPlugins } from '@/plugins'
 import Toast from 'vue-toastification'
-
 import "vue-toastification/dist/index.css";
+
 
 // Tailwind Css
 import "./styles/style.css"
@@ -17,5 +17,6 @@ const app = createApp(App)
 registerPlugins(app)
 
 app.use(Toast)
+// app.use(Maska)
 
 app.mount('#app')

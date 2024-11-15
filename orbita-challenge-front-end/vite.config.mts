@@ -5,7 +5,8 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify'
 import ViteFonts from 'unplugin-fonts/vite'
 import VueRouter from 'unplugin-vue-router/vite'
 
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
+import type { InlineConfig } from 'vitest/node'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
@@ -49,4 +50,25 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  test: {
+    globals: true,
+    environment: 'happy-dom',
+    server: {
+      deps: {
+        inline: ['vuetify'],
+        optimizer: {
+          web: {
+            include: ['vuetify'],
+          },
+        },
+      },
+    },
+    css: {
+      modules: {
+        scopeBehaviour: 'local',
+      },
+    },
+  }
+}as UserConfig & {
+  test: InlineConfig
 })
