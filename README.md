@@ -116,17 +116,17 @@ Atualize o campo Connection com os detalhes do seu banco de dados. Exemplo de co
 
 ### Backend
 
-- **Aprimoramento retorno de erros**
-- **Melhorar o testes**
-- **Adicionar validações mais complexas para dados mais sensiveis**
-- **Dockerizar para utilização da api com maior facilidade em outros ambientes**
+- **Aprimorar os retornos de erro**
+- **Melhorar os testes**
+- **Adicionar validações mais complexas para dados sensíveis**
+- **Dockerizar a API para facilitar sua utilização em outros ambientes**
 
 ### Frontend
 
-- **Melhorar o tema dark em alguns componentes**:
-- **Melhorar o monitoramento do token**:
-- **Separar mais alguns componentes**:
-- **Publicar**:
-- **Melhorar a persistência**:
-- **Melhorar os testes de componentes**:
+- **Aprimorar o tema dark em alguns componentes**
+- **Melhorar o monitoramento do token**
+- **Separar mais componentes para maior organização**
+- **Publicar a aplicação**
+- **Melhorar a persistência dos dados**
+- **Aprimorar os testes de componentes**
 
