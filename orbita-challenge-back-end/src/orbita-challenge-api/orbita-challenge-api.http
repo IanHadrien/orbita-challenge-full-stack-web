@@ -1,6 +1,0 @@
-@orbita_challenge_api_HostAddress = http://localhost:5211
-
-GET {{orbita_challenge_api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
