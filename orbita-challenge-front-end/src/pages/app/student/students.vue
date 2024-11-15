@@ -1,15 +1,26 @@
 <template>
   <div class="px-6 pt-4">
-    <div class="border flex items-center justify-between space-x-16">
-      <v-text-field
-        label="Prepend inner"
-        prepend-inner-icon="mdi-map-marker"
-        variant="outlined"
-        rounded="lg"
-        density="compact"
-      />
+    <div class="flex items-center justify-between space-x-16 mb-2">
+      <div class="w-full flex items-center space-x-2">
+        <v-text-field
+          label="Pesquisar por nome, cpf e registro"
+          variant="outlined"
+          rounded="lg"
+          density="compact"
+          hide-details="auto"
+          v-model="search"
+        />
 
-      <RegisterStudent />
+        <v-btn 
+          density="comfortable" 
+          rounded
+          icon="mdi-magnify" 
+          color="#2D2C2C"
+          @click="searchQuery"
+        />
+      </div>
+
+      <RegisterStudent @register-success="getStudents" />
     </div>
     
     <!-- Table -->
@@ -20,9 +31,9 @@
       :loading="loading"
     >
       <template #item.actions="{ item }">
-        <UpdateStudent :student="item" />
+        <UpdateStudent :student="item" @update-success="getStudents" />
 
-        <DeleteStudent :student="item" />
+        <DeleteStudent :student="item" @delete-success="getStudents" />
       </template>
     </v-data-table>
   </div>
@@ -54,6 +65,7 @@
 
       students: Array<Student>(),
       loading: false,
+      search: ""
     }),
 
     components: {
@@ -72,9 +84,20 @@
         try {
           const students = await getStudentsApi()
           this.students = students
-          console.log("Studantes:", students)
         } catch (e) {
           this.toast.error('Falha ao carregar estudantes.')
+        } finally {
+          this.loading = false
+        }
+      },
+
+      async searchQuery() {
+        this.loading = true
+        try {
+          const students = await getStudentsApi(this.search)
+          this.students = students
+        } catch (e) {
+          this.toast.error('Falha ao pesquisar estudantes.')
         } finally {
           this.loading = false
         }
