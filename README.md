@@ -1,120 +1,85 @@
-GrupoA Educação - Full Stack Web Developer
-===================
+# Desafio Full Stack - Grupo +A Educação
 
-[![N|Solid](https://www.grupoa.com.br/hs-fs/hubfs/logo-grupoa.png?width=300&name=logo-grupoa.png)](https://www.grupoa.com.br) 
+## Sobre o Projeto
 
-O objetivo deste desafio é avaliar as competências técnicas dos candidatos a desenvolvedor Full Stack Web na Maior Plataforma de Educação do Brasil, **Grupo A Educação**. 
+Esta aplicação foi desenvolvida como parte de um desafio técnico, com o objetivo de registrar e gerenciar matrículas de alunos em uma plataforma educacional. O sistema permite que os usuários se cadastrem, visualizem e editem informações sobre os alunos matriculados em turmas de programação web.
 
-Será solicitado o desenvolvimento de uma Aplicação que realize a Matrícula do Aluno na Turma de Programação Web da instituição EdTech. Regras e requisitos técnicos estão detalhadas neste documento.
+A arquitetura adotada segue os princípios do **Domain-Driven Design (DDD)**, que visa uma estruturação clara e eficaz do código, facilitando a manutenção e a escalabilidade do sistema.
 
-# Especificações Técnicas
-- **Front End:** [Vuetifyjs](https://vuetifyjs.com/en/)  como framework de UI
-- **API:** .netCore, C# e Entity framework
-- **Banco de Dados:** Postgress ou MySQL
-- **Idioma de escrita do código:** Inglês
+## Tecnologias Utilizadas
 
+- **Backend**: 
+  - **.NET 8** - Framework utilizado para desenvolver a API.
+  - **Entity Framework** - ORM utilizado para interação com o banco de dados.
+  - **Swagger** - Para documentação da API e testes interativos.
+  - **JWT (Json Web Token)** - Utilizado para autenticação e autorização na API.
+  - **FluentValidation** - Para validação de entradas na API.
+  - **FluentAssertions** - Biblioteca para melhorar os testes de unidade.
+  
+- **Frontend**:
+  - **Vue.js** - Framework JavaScript para desenvolvimento da aplicação frontend.
+  - **Vuetify** - Biblioteca de componentes baseada no Vue.js para a construção da UI.
+  - **Axios** - Utilizado para comunicação com a API backend.
+  - **Vue Router** - Gerenciamento de rotas da aplicação.
+  - **Vite** - Ferramenta de build rápida e eficiente.
 
-# Requisitos
-## Contextualização
-Considere que uma Instituição de Ensino Superior precisa de uma solução para cadastrar e gerenciar matrículas de usuários em turmas online. Para realizar a matrícula, é necessário que o cadastro de aluno tenha sido realizado.
+## Arquitetura Utilizada
 
-O desafio consiste em criar uma aplicação para o cadastro de usuários conforme os critérios de aceitação.
+A aplicação segue o padrão de **Domain-Driven Design (DDD)**, que organiza o código em torno de um modelo de domínio central, garantindo que as regras de negócio sejam bem definidas e de fácil manutenção. A arquitetura é composta pelas seguintes camadas:
 
-## Mockups de interface
-Abaixo alguns mockoups de interface como um guia para a criação do front-end. Fique à vontade para usar sua criatividade e melhorias na criação do front-end.
+1. **Camada de Apresentação (UI)**: Responsável pela interação com o usuário. Foi construída utilizando o framework **Vue.js** e os componentes do **Vuetify**, com foco em uma interface limpa e funcional.
+2. **Camada de Aplicação**: Contém a lógica de aplicação e serviços que interagem diretamente com as camadas de domínio e de infraestrutura.
+3. **Camada de Domínio**: A camada central que contém as entidades do sistema, ou seja, as classes que representam as principais regras de negócio, como a entidade `Aluno`.
+4. **Camada de Infraestrutura**: Responsável pela persistência de dados e interação com bancos de dados. Utiliza **Entity Framework** como ORM e realiza a comunicação com um banco de dados **MySQL**.
 
-* Listagem de Alunos
-![Listagem de Alunos](/mockups/studants_list.png)
+Imagem da arquitetura
 
-* Criar/Editar Aluno
-![Listagem de Alunos](/mockups/studants_save.png)
+## Bibliotecas de Terceiros Utilizadas
 
-## Histórias do Usuário
-- **Sendo** um usuário administrativo da Instituição
-- **Quero** gerenciar cadastros de alunos
-- **Para** que eu possa realizar a matrícula do aluno
+### Backend
 
-### Critérios de aceite: 
+- **AutoMapper**: Utilizado para mapear objetos de domínio para objetos de requisição e resposta, evitando código repetitivo.
+- **FluentValidation**: Implementação de validações para dados de entrada de forma simples e legível.
+- **FluentAssertions**: Biblioteca utilizada para tornar as asserções nos testes mais expressivas e legíveis.
+- **JWT (Json Web Token)**: Utilizado para gerenciar a autenticação e segurança da API.
+- **Swagger**: Utilizado para gerar a documentação interativa da API, facilitando o teste de endpoints.
 
-#### Cenário: cadastrar novo aluno
-- **Dado** que estou na tela de Consulta de Alunos
-- **Quando** clico em Cadastrar Aluno
-- **Então** abre a tela de Cadastro do Aluno
-- **E** exibe os campos obrigatórios vazios
-####
-- **Dado** que inseri dados válidos nos campos
-- **Quando** clico em Salvar
-- **Então** cria o novo aluno na base
-- **E** retorna mensagem de sucesso
-####
-- **Dado** que inseri dados válidos nos campos
-- **Quando** clico em Cancelar
-- **Então** retorna para tela Consulta de Alunos
-- **E** não persiste a gravação dos dados no banco 
+### Frontend
 
-#### Cenário: listar alunos cadastrados 
-- **Dado** que estou no Módulo Acadêmico
-- **Quando** clico no menu Alunos
-- **Então** abre a tela de Consulta de Alunos 
-- **E** exibe opção Cadastrar Aluno ao topo
-- **E** lista dados dos alunos cadastrados
-- **E** exibe opção Editar por aluno
-- **E** exibe opção Excluir por aluno
+- **Vue.js**: Framework JavaScript para criação de aplicações de página única (SPA).
+- **Vuetify**: Biblioteca de componentes baseada no Vue.js, que facilita a construção de interfaces ricas e responsivas.
+- **Axios**: Biblioteca para realizar chamadas HTTP para a API e gerenciar dados entre o frontend e o backend.
+- **Vue Router**: Gerenciador de rotas utilizado para criar a navegação entre diferentes páginas da aplicação.
+- **Vuex**: Gerenciador de estado global que facilita o compartilhamento de dados entre componentes.
+- **Vite**: Ferramenta de build que acelera o processo de desenvolvimento e garante alta performance.
 
-#### Cenário editar cadastro de aluno
-- **Dado** que estou na listagem de alunos
-- **Quando** clico em Editar aluno
-- **Então** abre a tela de Cadastro do Aluno 
-- **E** exibe os campos do cadastro preenchidos
-- **E** habilita alteração dos campos editáveis
-####
-- **Dado** que estou na tela de Cadastro do Aluno
-- **Quando** clica em Salvar
-- **Então** grava os dados editáveis na base
-####
-- **Dado** que estou na tela de Cadastro do Aluno
-- **Quando** clica em Cancelar
-- **Então** retorna para a tela de Consulta de Alunos
-- **E** não persiste a gravação dos dados
+## Melhorias que Fariam Parte do Próximo Sprint
 
-#### Cenário: excluir cadastro de aluno
-- **Dado** que estou na listagem de alunos
-- **Quando** clico em Excluir aluno
-- **Então** exibe a modal de confirmação de exclusão
-####
-- **Dado** que estou na modal de confirmação de exclusão 
-- **Quando** clico em Confirmar
-- **Então** então exclui o registro do aluno
-####
-- **Dado** que estou na modal de confirmação de exclusão
-- **Quando** clico em Cancelar
-- **Então** então fecha a modal e não persiste a exclusão
+### Backend
 
-## Campos obrigatórios:
-- **Nome** (editável)
-- **Email** (editável)
-- **RA** (não editável) (chave única)
-- **CPF** (não editável)
+- **Aprimoramento da segurança**: Melhorar a segurança do JWT com regras mais rigorosas de autenticação, incluindo a criptografia das senhas.
+- **Adicionar testes de integração**: Implementar testes que validem a integração entre os diferentes componentes da aplicação, como o banco de dados, a API e o frontend.
+- **Refatoração da camada de domínio**: Criar entidades mais refinadas e específicas para o domínio de matrículas e alunos.
+- **Monitoramento e logging**: Implementar soluções de logging e monitoramento, como o uso de **Serilog** para rastrear erros e otimizar o desempenho.
 
-# Desejável
-- Testes unitários
-- Documentação da arquitetura de solução
+### Frontend
 
-# Critérios de avaliação
-- Qualidade de escrita do código
-- Organização do projeto
-- Qualidade da API
-- Lógica da solução implementada
-- Qualidade da camada de persistência
-- Utilização do Git (quantidade e descrição dos commits, Git Flow, ...)
+- **Melhorar a performance**: Otimizar a aplicação, especialmente para dispositivos móveis, para garantir uma experiência mais fluida e rápida.
+- **Adicionar uma página de histórico de matrículas**: Criar uma página onde os usuários possam visualizar todas as matrículas realizadas.
+- **Implementar tema dark/light**: Adicionar suporte a temas dinâmicos para melhorar a experiência visual do usuário.
+- **Adicionar mais componentes reutilizáveis**: Refatorar o código para criar mais componentes modulares e reutilizáveis, reduzindo a duplicação de código.
 
-# Instruções de entrega
-1. Crie um fork do repositório no seu GitHub
-2. Faça o push do código desenvolvido no seu Github
-3. Inclua um arquivo chamado COMMENTS.md explicando
-- Decisão da arquitetura utilizada
-- Lista de bibliotecas de terceiros utilizadas
-- O que você melhoraria se tivesse mais tempo
-- Quais requisitos obrigatórios que não foram entregues
-4. Informe ao recrutador quando concluir o desafio junto com o link do repositório
-5. Após revisão do projeto junto com a equipe de desevolvimento deixe seu repositório privado
+## Requisitos Obrigatórios Não Entregues
+
+Durante o desenvolvimento, a maioria dos requisitos foi atendida, mas algumas melhorias e funcionalidades adicionais planejadas não foram entregues devido a limitações de tempo:
+
+- **Testes automatizados**: Não foi possível cobrir todos os testes unitários e de integração devido a restrições de tempo.
+- **Interface Responsiva Completa**: A interface foi parcialmente responsiva, mas algumas partes ainda podem ser aprimoradas para dispositivos móveis.
+- **Pagina de Histórico de Matrículas**: Não foi implementada uma página para visualizar o histórico completo de matrículas dos alunos.
+
+## Conclusão
+
+Este projeto foi uma excelente oportunidade para aplicar conhecimentos em **Domain-Driven Design (DDD)** e desenvolver uma aplicação Full Stack que combina **Vue.js** no frontend e **.NET 8** no backend. A experiência foi desafiadora, mas ao mesmo tempo, valiosa, pois permitiu o aprendizado de boas práticas de desenvolvimento e arquitetura de software.
+
+Se tivesse mais tempo, as prioridades seriam implementar mais testes, melhorar a interface com o usuário e refinar a lógica de autenticação da API, além de adicionar mais funcionalidades, como a página de histórico de matrículas.
+
