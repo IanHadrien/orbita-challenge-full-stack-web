@@ -16,9 +16,20 @@ internal class StudentsRepository : IStudentsReadOnlyRepository, IStudentsWriteO
         await _dbContext.Students.AddAsync(student);
     }
 
-    public async Task<List<Student>> GetAll()
+    public async Task<List<Student>> GetAll(string? search)
     {
-        return await _dbContext.Students.AsNoTracking().ToListAsync();
+        var query = _dbContext.Students.AsQueryable();
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            query = query.Where(s =>
+                s.Name.Contains(search) ||
+                s.Cpf.Contains(search) ||
+                s.Ra.Contains(search));
+        }
+
+        return await query.ToListAsync();
+        //return await _dbContext.Students.AsNoTracking().ToListAsync();
     }
 
     async Task<Student?> IStudentsReadOnlyRepository.GetById(long id)

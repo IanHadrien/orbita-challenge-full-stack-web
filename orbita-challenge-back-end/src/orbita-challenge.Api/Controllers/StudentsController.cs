@@ -29,10 +29,11 @@ public class StudentsController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(typeof(ResponseStudentsJson), StatusCodes.Status200OK)]
-    //[Authorize]
-    public async Task<IActionResult> GetAllStudents([FromServices] IGetAllStudentsUseCase useCase)
+    public async Task<IActionResult> GetAllStudents(
+        [FromServices] IGetAllStudentsUseCase useCase,
+        [FromQuery] string? search = null)
     {
-        var response = await useCase.Execute();
+        var response = await useCase.Execute(search);
 
         if (response.Students.Count != 0)
             return Ok(response);
