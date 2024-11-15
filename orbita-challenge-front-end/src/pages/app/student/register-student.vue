@@ -6,8 +6,7 @@
     <template v-slot:activator="{ props }">
       <v-btn
         prepend-icon="mdi-account-plus"
-        color="primary"
-        class="mb-5"
+        color="#2D2C2C"
         height="40"
         border
         rounded="lg"
@@ -27,6 +26,7 @@
         <v-text-field
           v-model="itensForm.name"
           variant="underlined"
+          :error-messages="errors.Name"
           label="Nome *"
           required
         />
@@ -34,6 +34,7 @@
         <v-text-field
           v-model="itensForm.email"
           variant="underlined"
+          :error-messages="errors.Email"
           label="E-mail *"
           type="email" 
           required
@@ -42,6 +43,7 @@
         <v-text-field
           v-model="itensForm.ra"
           variant="underlined"
+          :error-messages="errors.RA"
           label="Registro acadêmico *"
           required
         />
@@ -49,8 +51,8 @@
         <v-text-field
           v-model="itensForm.cpf"
           variant="underlined"
+          :error-messages="errors.CPF"
           label="CPF *"
-          :rules="cpfRules"
           placeholder="Informe o número do documento"
           required
         />
@@ -58,9 +60,9 @@
         <div class="flex items-center justify-end space-x-2 mt-4">
           <div>
             <v-btn
-              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md font-medium shadow-sm hover:opacity-80"
               variant="flat"
-              color="error"
+              color="#CE002E"
               @click="close"
             >
               Cancelar
@@ -70,8 +72,9 @@
           <div>
             <v-btn
               :loading="loading"
-              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md font-medium shadow-sm hover:opacity-80"
               variant="flat"
+              color="#2D2C2C"
               type="submit"
             >
               Salvar
@@ -106,25 +109,28 @@
         cpf: '',
       },
 
+      errors: {
+        Name: null,
+        Email: null,
+        RA: null,
+        CPF: null,
+      },
+
       visible: true,
       loading: false,
-
-      cpfRules: [
-        (v : any) => !!v || 'Campo obrigatório',
-        (v : any) => (/^([0-9]{3}.[0-9]{3}.[0-9]{3}-[0-9]{2})|([0-9]{11})|([0-9]{9}-[0-9]{2})$/ || v.lenght == 11).test(v) || 'CPF inválido'
-      ]
     }),
 
-    watch: {
-      dialog (val) {
-        val || this.close()
-      },
-    },
-
     methods: {
-      async registerStudent (e: SubmitEvent) {
+      async registerStudent (e: Event) {
         this.loading = true
         e.preventDefault()
+
+        this.errors = {
+          Name: null,
+          Email: null,
+          RA: null,
+          CPF: null,
+        }
 
         try {
           await registerStudentApi({
@@ -135,9 +141,18 @@
           })
 
           this.toast.success("Aulo cadastrado com sucesso!")
+
+          this.$emit("register-success")
           this.close()
-        } catch (e) {
-          console.error("Erro:", e)
+        } catch (error: any) {
+          const serverErrors = error?.response?.data?.errors;
+        
+          if (serverErrors) {
+            for (const field in serverErrors) {
+              this.errors[field] = serverErrors[field][0]
+            }
+          }
+
           this.toast.error('Falha ao cadastrar estudantes.')
         } finally {
           this.loading = false

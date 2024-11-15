@@ -22,6 +22,7 @@
         <v-text-field
           v-model="studentForm.name"
           variant="underlined"
+          :error-messages="errors.Name"
           label="Nome *"
           required
         />
@@ -29,6 +30,7 @@
         <v-text-field
           v-model="studentForm.email"
           variant="underlined"
+          :error-messages="errors.Email"
           label="E-mail *"
           type="email" 
           required
@@ -54,9 +56,9 @@
         <div class="flex items-center justify-end space-x-2 mt-4">
           <div>
             <v-btn
-              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md font-medium shadow-sm hover:opacity-80"
               variant="flat"
-              color="error"
+              color="#CE002E"
               @click="close"
             >
               Cancelar
@@ -66,8 +68,9 @@
           <div>
             <v-btn
               :loading="loading"
-              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md bg-primary font-medium shadow-sm hover:opacity-80"
+              class="text-subtitle-1 flex-grow-1 w-full sm:w-auto justify-center rounded-md font-medium shadow-sm hover:opacity-80"
               variant="flat"
+              color="#2D2C2C"
               type="submit"
             >
               Atualizar
@@ -81,7 +84,7 @@
 
 <script lang="ts">
   import { Student } from '@/_types/student'
-import { updateStudentApi } from '@/api/student/update-student';
+  import { updateStudentApi } from '@/api/student/update-student';
   import { PropType } from 'vue'
   import { useToast } from 'vue-toastification'
 
@@ -97,7 +100,6 @@ import { updateStudentApi } from '@/api/student/update-student';
 
     setup() {
       const toast = useToast();
-
       return { toast }
     },
     
@@ -113,6 +115,11 @@ import { updateStudentApi } from '@/api/student/update-student';
           cpf: this.student.cpf,
         },
 
+        errors: {
+          Name: null,
+          Email: null,
+        },
+
         visible: true,
         loading: false,
       }
@@ -125,9 +132,14 @@ import { updateStudentApi } from '@/api/student/update-student';
     },
 
     methods: {
-      async updateStudent (e) {
+      async updateStudent (e: Event) {
         this.loading = true
         e.preventDefault()
+
+        this.errors = {
+          Name: null,
+          Email: null,
+        }
 
         try {
           await updateStudentApi({
@@ -137,9 +149,20 @@ import { updateStudentApi } from '@/api/student/update-student';
           })
 
           this.toast.success("Aluno editado com sucesso!")
+
+          this.$emit("update-success")
           this.close()
-        } catch (e) {
-          console.error("Erro:", e)
+        } catch (error: any) {
+          const serverErrors = error?.response?.data?.errors;
+        
+          if (serverErrors) {
+            for (const field in serverErrors) {
+              this.errors[field] = serverErrors[field][0]
+            }
+          }
+
+          console.error(this.errors)
+
           this.toast.error('Falha ao editar aluno.')
         } finally {
           this.loading = false
