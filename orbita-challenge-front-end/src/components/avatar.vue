@@ -54,14 +54,37 @@
     data: () => ({
       user: {
         initials: 'JD',
-        fullName: 'John Doe',
         email: 'john.doe@doe.com',
       },
     }),
 
+    mounted() {
+      this.getDataUser()
+    },
+
     methods: {
+      getDataUser() {
+        const storedData = localStorage.getItem("@authData");
+
+        if (storedData) {
+          const parsedData = JSON.parse(storedData);
+
+          if (parsedData.email) {
+            this.user.email = parsedData.email;
+          }
+
+          if (parsedData.email) {
+            const initials = parsedData.email
+              .split('@')[0]
+              .slice(0, 2)
+              .toUpperCase();
+            this.user.initials = initials;
+          }
+        }
+      },
+
       logout() {
-        localStorage.removeItem("@authToken")
+        localStorage.removeItem("@authData")
         this.$router.push("/sign-in")
       },
     }
