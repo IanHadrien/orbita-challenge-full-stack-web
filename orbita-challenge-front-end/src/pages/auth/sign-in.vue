@@ -98,8 +98,15 @@
           })
 
           const token = response.token
+          const email = response.email
 
-          localStorage.setItem("@authToken", token)
+          const userData = {
+            token: token,
+            email: email,
+          }
+
+          localStorage.setItem("@authData", JSON.stringify(userData));
+
           this.$router.push("/students")
 
           this.toast.success("Bem-vindo de volta!")

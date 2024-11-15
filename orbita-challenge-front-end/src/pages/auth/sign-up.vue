@@ -97,9 +97,16 @@
           })
 
           const token = response.token
+          const email = response.email
 
-          localStorage.setItem("@authToken", token);
-          this.$router.push("/students");
+          const userData = {
+            token: token,
+            email: email,
+          }
+
+          localStorage.setItem("@authData", JSON.stringify(userData))
+
+          this.$router.push("/students")
 
           this.toast.success("Usuário cadastrado com sucesso!")
         } catch (e) {

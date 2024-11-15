@@ -56,7 +56,15 @@ router.beforeEach((to, from, next) => {
 });
 
 function isAuthenticated() {
-  return !!localStorage.getItem('@authToken');
+  const storedData = localStorage.getItem("@authData")
+
+  if (storedData) {
+    const parsedData = JSON.parse(storedData)
+
+    return !!parsedData.token
+  }
+
+  return false
 }
 
 export default router
